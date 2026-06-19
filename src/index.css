@@ -1,7 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 html, body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  font-family: Arial, sans-serif;
+  font-family: "Poppins", sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #111;
 }
 
+/* MUI dahil HER ŞEY */
+* {
+  font-family: "Poppins", sans-serif !important;
+}

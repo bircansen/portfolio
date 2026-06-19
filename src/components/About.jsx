@@ -2,9 +2,36 @@ import { Typography, Avatar, Box } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import me from "../photos/me.png";
 
+function useTypingEffect(text, speed = 60, start = false) {
+  const [displayed, setDisplayed] = useState("");
+
+  useEffect(() => {
+    if (!start) return;
+
+    let i = 0;
+    setDisplayed("");
+
+    const interval = setInterval(() => {
+      setDisplayed(text.slice(0, i + 1));
+      i++;
+
+      if (i >= text.length) {
+        clearInterval(interval);
+      }
+    }, speed);
+
+    return () => clearInterval(interval);
+  }, [text, speed, start]);
+
+  return displayed;
+}
+
 export default function About() {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
+
+  const introText = "Merhaba, ben Bircan.";
+  const typedIntro = useTypingEffect(introText, 60, open);
 
   useEffect(() => {
     let timer;
@@ -12,9 +39,7 @@ export default function About() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          timer = setTimeout(() => {
-            setOpen(true);
-          }, 250);
+          timer = setTimeout(() => setOpen(true), 250);
         } else {
           setOpen(false);
           clearTimeout(timer);
@@ -35,14 +60,13 @@ export default function About() {
     <Box
       ref={ref}
       sx={{
-        minHeight: "60vh",
+        minHeight: "65vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         px: 3,
       }}
     >
-      {/* PANEL (KART HİSSİ AMA FULL MODERN) */}
       <Box
         sx={{
           width: "100%",
@@ -50,20 +74,16 @@ export default function About() {
           display: "flex",
           overflow: "hidden",
           borderRadius: 5,
-
-          // soft glass shadow
           boxShadow: open
             ? "0 30px 80px rgba(0,0,0,0.25)"
             : "0 10px 30px rgba(0,0,0,0.1)",
-
           transition: "0.6s cubic-bezier(0.22, 1, 0.36, 1)",
-
           flexDirection: { xs: "column", md: "row" },
-          background: "rgba(255,255,255,0.6)",
+          background: "rgba(255,255,255,0.7)",
           backdropFilter: "blur(10px)",
         }}
       >
-        {/* LEFT SIDE - AVATAR */}
+        {/* LEFT */}
         <Box
           sx={{
             flex: 1,
@@ -72,46 +92,66 @@ export default function About() {
             alignItems: "center",
             p: 4,
             background: "linear-gradient(135deg, #f5f5f5, #ffffff)",
-            transition: "0.6s",
           }}
         >
           <Avatar
             src={me}
             sx={{
-              width: 160,
-              height: 160,
+              width: 180,
+              height: 180,
               transition: "0.8s cubic-bezier(0.22, 1, 0.36, 1)",
-              transform: open
-                ? "scale(1)"
-                : "scale(0.9)",
+              transform: open ? "scale(1)" : "scale(0.9)",
               boxShadow: "0 20px 50px rgba(0,0,0,0.25)",
             }}
           />
         </Box>
 
-        {/* RIGHT SIDE - TEXT */}
+        {/* RIGHT */}
         <Box
           sx={{
             flex: 1.5,
-            p: 4,
+            p: 5,
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-
             opacity: open ? 1 : 0,
-            transform: open
-              ? "translateX(0)"
-              : "translateX(30px)",
-
+            transform: open ? "translateX(0)" : "translateX(30px)",
             transition: "0.9s cubic-bezier(0.22, 1, 0.36, 1)",
           }}
         >
-          <Typography variant="h4" sx={{ fontWeight: 700, mb: 2 }}>
-            Hakkımda
+          {/* TEK SATIR TYPEWRITER */}
+          <Typography
+            sx={{
+              fontSize: "2rem",
+              fontWeight: 800,
+              mb: 0.5,
+              color: "#111",
+              whiteSpace: "nowrap",   // 🔥 TEK SATIR
+              overflow: "hidden",
+            }}
+          >
+            {typedIntro}
           </Typography>
 
-          <Typography sx={{ color: "#555", lineHeight: 1.7 }}>
-            Mobil ve web teknolojilerine ağırlık vererek yazılım geliştirme alanında çalışan, modern ve ölçeklenebilir yazılım çözümleri geliştiren, kullanıcı deneyimini ön planda tutan ve öğrenmeye açık bir geliştiriciyim.
+          <Typography
+            sx={{
+              fontSize: "1.1rem",
+              fontWeight: 500,
+              color: "#666",
+              mb: 2,
+            }}
+          >
+            Yazılım Geliştirici
+          </Typography>
+
+          <Typography
+            sx={{
+              fontSize: "1.05rem",
+              color: "#444",
+              lineHeight: 1.8,
+            }}
+          >
+            Full-stack web geliştirme alanında kendini geliştiren, modern ve kullanıcı odaklı yazılım çözümleri üreten junior bir yazılım geliştiricisiyim.
           </Typography>
         </Box>
       </Box>

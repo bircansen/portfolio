@@ -4,9 +4,6 @@ import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import { Box } from "@mui/material";
 
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
 function App() {
   return (
     <Box sx={{ overflowX: "hidden" }}>

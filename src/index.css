@@ -1,3 +1,7 @@
+/* Slick zorunlu */
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+
 html, body {
   margin: 0;
   padding: 0;
@@ -5,6 +9,3 @@ html, body {
   font-family: Arial, sans-serif;
 }
 
-/* Slick zorunlu */
-@import "slick-carousel/slick/slick.css";
-@import "slick-carousel/slick/slick-theme.css";

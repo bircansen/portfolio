@@ -1,6 +1,11 @@
 import { Typography, Box, Stack } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 
+import GitHubIcon from "@mui/icons-material/GitHub";
+import EmailIcon from "@mui/icons-material/Email";
+import PhoneIcon from "@mui/icons-material/Phone";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+
 export default function Contact() {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
@@ -16,10 +21,26 @@ export default function Contact() {
   }, []);
 
   const items = [
-    { text: "github.com/bircansen", href: "https://github.com/bircansen" },
-    { text: "linkedin.com/in/bbircansen", href: "https://linkedin.com/in/bbircansen/" },
-    { text: "bircansen18@outlook.com", href: "mailto:bircansen18@outlook.com" },
-    { text: "+90 551 255 51 12", href: "tel:+905512555112" },
+    {
+      text: "github.com/bircansen",
+      href: "https://github.com/bircansen",
+      icon: <GitHubIcon />,
+    },
+    {
+      text: "linkedin.com/in/bbircansen",
+      href: "https://linkedin.com/in/bbircansen/",
+      icon: <LinkedInIcon />,
+    },
+    {
+      text: "bircansen18@outlook.com",
+      href: "mailto:bircansen18@outlook.com",
+      icon: <EmailIcon />,
+    },
+    {
+      text: "+90 551 255 51 12",
+      href: "tel:+905512555112",
+      icon: <PhoneIcon />,
+    },
   ];
 
   return (
@@ -65,15 +86,19 @@ export default function Contact() {
               target="_blank"
               sx={{
                 display: "flex",
+                alignItems: "center",
                 justifyContent: "center",
+                gap: 1.2,
                 textDecoration: "none",
                 color: "#111",
                 wordBreak: "break-word",
                 opacity: open ? 1 : 0,
                 transform: open ? "translateY(0)" : "translateY(20px)",
                 transition: "0.4s",
+                fontSize: "1rem",
               }}
             >
+              {item.icon}
               {item.text}
             </Box>
           ))}

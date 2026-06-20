@@ -24,29 +24,21 @@ export default function Projects() {
   const [indexMap, setIndexMap] = useState({});
   const [dragStartX, setDragStartX] = useState(null);
   const [openImg, setOpenImg] = useState(null);
-
   const [visibleCards, setVisibleCards] = useState({});
   const cardRefs = useRef({});
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const index = entry.target.getAttribute("data-index");
-
-          if (entry.isIntersecting) {
-            setVisibleCards((prev) => ({
-              ...prev,
-              [index]: true,
-            }));
-          }
-        });
-      },
-      {
-        threshold: 0.15,
-        rootMargin: "-80px 0px -50px 0px",
-      }
-    );
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const index = entry.target.getAttribute("data-index");
+        if (entry.isIntersecting) {
+          setVisibleCards((prev) => ({ ...prev, [index]: true }));
+        }
+      });
+    }, {
+      threshold: 0.15,
+      rootMargin: "-80px 0px -50px 0px",
+    });
 
     Object.values(cardRefs.current).forEach((el) => {
       if (el) observer.observe(el);
@@ -201,15 +193,11 @@ export default function Projects() {
                       textDecoration: "none",
                       color: "#111",
                       fontWeight: 600,
-
                       px: { xs: 1, md: 2 },
                       py: { xs: 0.5, md: 1 },
-
                       fontSize: { xs: "0.75rem", md: "0.9rem" },
-
                       borderRadius: "10px",
                       background: "#f2f2f2",
-
                       transition: "0.2s",
                       "&:hover": {
                         background: "#e6e6e6",
@@ -234,15 +222,11 @@ export default function Projects() {
                         textDecoration: "none",
                         color: "#111",
                         fontWeight: 600,
-
                         px: { xs: 1, md: 2 },
                         py: { xs: 0.5, md: 1 },
-
                         fontSize: { xs: "0.75rem", md: "0.9rem" },
-
                         borderRadius: "10px",
                         background: "#e8f4ff",
-
                         transition: "0.2s",
                         "&:hover": {
                           background: "#d6ecff",
@@ -276,16 +260,46 @@ export default function Projects() {
                 ))}
               </Stack>
 
+              {/* SLIDER (GERİ EKLENDİ) */}
               <Box sx={{ display: "flex", justifyContent: "center" }}>
                 <Box
+                  onMouseDown={handleDragStart}
+                  onMouseUp={(e) => handleDragEnd(e, i)}
+                  onTouchStart={handleDragStart}
+                  onTouchEnd={(e) => handleDragEnd(e, i)}
                   sx={{
                     width: "100%",
                     maxWidth: 900,
                     borderRadius: 2,
                     overflow: "hidden",
                     boxShadow: "0 20px 50px rgba(0,0,0,0.25)",
+                    position: "relative",
                   }}
                 >
+                  {/* CLICK AREAS */}
+                  <Box
+                    onClick={() => prev(i)}
+                    sx={{
+                      position: "absolute",
+                      left: 0,
+                      top: 0,
+                      width: "50%",
+                      height: "100%",
+                      zIndex: 2,
+                    }}
+                  />
+                  <Box
+                    onClick={() => next(i)}
+                    sx={{
+                      position: "absolute",
+                      right: 0,
+                      top: 0,
+                      width: "50%",
+                      height: "100%",
+                      zIndex: 2,
+                    }}
+                  />
+
                   <img
                     src={current}
                     onClick={() => setOpenImg(current)}
@@ -297,6 +311,24 @@ export default function Projects() {
                     }}
                   />
                 </Box>
+              </Box>
+
+              {/* DOTS */}
+              <Box sx={{ display: "flex", justifyContent: "center", gap: 1, py: 1.5 }}>
+                {project.slides.map((_, idx2) => (
+                  <Box
+                    key={idx2}
+                    onClick={() => setSlide(i, idx2)}
+                    sx={{
+                      width: idx2 === idx ? 10 : 7,
+                      height: idx2 === idx ? 10 : 7,
+                      borderRadius: "50%",
+                      background: idx2 === idx ? "#111" : "#bbb",
+                      cursor: "pointer",
+                      transition: "0.2s",
+                    }}
+                  />
+                ))}
               </Box>
             </Box>
           );

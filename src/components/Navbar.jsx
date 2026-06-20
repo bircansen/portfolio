@@ -14,6 +14,7 @@ export default function Navbar() {
 
   const menu = [
     { id: "projects", label: "PROJELER" },
+    { id: "cv", label: "ÖZGEÇMİŞ", action: "cv" },
     { id: "contact", label: "İLETİŞİM" },
   ];
 
@@ -26,8 +27,11 @@ export default function Navbar() {
           position: "fixed",
           top: scrolled ? 8 : 12,
           left: "50%",
-          transform: "translateX(-50%)",
+          transform: scrolled
+            ? "translateX(-50%) scale(0.96)"
+            : "translateX(-50%) scale(1)",
           zIndex: 1300,
+          transition: "all 0.3s ease",
         }}
       >
         <Box
@@ -35,9 +39,19 @@ export default function Navbar() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            width: { xs: "95vw", md: scrolled ? "760px" : "900px" },
-            px: { xs: 1.2, md: scrolled ? 2 : 3 },
-            py: { xs: 0.4, md: scrolled ? 0.6 : 1 },
+            width: {
+              xs: scrolled ? "85vw" : "95vw",
+              md: scrolled ? "760px" : "900px",
+            },
+            maxWidth: "95vw",
+            px: {
+              xs: scrolled ? 1.8 : 1.2,
+              md: scrolled ? 2 : 3,
+            },
+            py: {
+              xs: scrolled ? 0.6 : 0.4,
+              md: scrolled ? 0.6 : 1,
+            },
             borderRadius: "999px",
             background: scrolled
               ? "rgba(255,255,255,0.94)"
@@ -66,34 +80,47 @@ export default function Navbar() {
 
           {/* RIGHT MENU */}
           <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-            {menu.map((item) => (
-              <Link key={item.id} to={item.id} smooth duration={600} offset={-90}>
-                <Button
-                  sx={{
-                    color: "#222",
-                    textTransform: "none",
-                    minWidth: "auto",
-                    px: { xs: 0.5, md: 1.5 },
-                    fontSize: { xs: "0.7rem", md: "0.95rem" },
-                  }}
-                >
-                  {item.label}
-                </Button>
-              </Link>
-            ))}
+            {menu.map((item) => {
+              if (item.action === "cv") {
+                return (
+                  <Button
+                    key={item.id}
+                    onClick={openCV}
+                    sx={{
+                      color: "#222",
+                      textTransform: "none",
+                      minWidth: "auto",
+                      px: { xs: 0.5, md: 1.5 },
+                      fontSize: { xs: "0.7rem", md: "0.95rem" },
+                    }}
+                  >
+                    ÖZGEÇMİŞ
+                  </Button>
+                );
+              }
 
-            <Button
-              onClick={openCV}
-              sx={{
-                color: "#222",
-                textTransform: "none",
-                minWidth: "auto",
-                px: { xs: 0.5, md: 1.5 },
-                fontSize: { xs: "0.7rem", md: "0.95rem" },
-              }}
-            >
-              ÖZGEÇMİŞ
-            </Button>
+              return (
+                <Link
+                  key={item.id}
+                  to={item.id}
+                  smooth
+                  duration={600}
+                  offset={-90}
+                >
+                  <Button
+                    sx={{
+                      color: "#222",
+                      textTransform: "none",
+                      minWidth: "auto",
+                      px: { xs: 0.5, md: 1.5 },
+                      fontSize: { xs: "0.7rem", md: "0.95rem" },
+                    }}
+                  >
+                    {item.label}
+                  </Button>
+                </Link>
+              );
+            })}
           </Box>
         </Box>
       </Box>

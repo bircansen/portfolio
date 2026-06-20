@@ -55,6 +55,13 @@ export default function Projects() {
         core: ["React", "Node.js", "Express", "WebSocket", "MongoDB", "RSA", "AES"],
       },
       slides: [chatterly1, chatterly2, chatterly3, chatterly4, chatterly5],
+       captions: [
+    "Chatterly Giriş Ekranı",
+    "Chatterly Kayıt Ekranı",
+    "Kullanıcı Profil Güncelleme",
+    "Sohbet & Mesajlaşma",
+    "Grup Sohbeti"
+  ],
       github: "https://github.com/bircansen/chat-app.git",
       live: "https://chatterly-lrhs.onrender.com/chats",
     },
@@ -65,6 +72,11 @@ export default function Projects() {
         core: ["React", "ASP.NET Core Web API", "EF Core", "MySQL"],
       },
       slides: [gt1, gt2, gt3],
+      captions: [
+    "Görev Listesi",
+    "Görev Ekleme Modalı",
+    "Kullanıcı Bazlı Görev Tablosu"
+  ],
       github: "https://github.com/bircansen/task-mini-app.git",
     },
     {
@@ -75,6 +87,14 @@ export default function Projects() {
         core: ["React", "Redux", "Express", "MongoDB", "Formik", "Yup"],
       },
       slides: [ec1, ec2, ec3, ec4, ec5, ec6],
+      captions: [
+    "Shopora Anasayfa",
+    "Favoriler Sayfası",
+    "Sepet Görünümü",
+    "Ödeme Ekranı",
+    "Arama Filtreleme",
+     "Kullanıcı Profil Güncelleme"
+  ],
       github: "https://github.com/bircansen/shopora.git",
     },
   ];
@@ -310,6 +330,20 @@ export default function Projects() {
                       cursor: "zoom-in",
                     }}
                   />
+                  <Typography
+  sx={{
+    textAlign: "center",
+    mt: 1,
+    fontSize: { xs: "0.75rem", md: "0.85rem" },
+    color: "#666",
+    px: 1,
+
+    opacity: 1,
+    transition: "0.3s ease",
+  }}
+>
+  {project.captions?.[idx] || ""}
+</Typography>
                 </Box>
               </Box>
 

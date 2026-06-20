@@ -20,6 +20,10 @@ import ec4 from "../photos/ec4.png";
 import ec5 from "../photos/ec5.png";
 import ec6 from "../photos/ec6.png";
 
+import sw1 from "../photos/sw1.jpeg"
+import sw2 from "../photos/sw2.jpeg";
+
+
 export default function Projects() {
   const [indexMap, setIndexMap] = useState({});
   const [dragStartX, setDragStartX] = useState(null);
@@ -97,6 +101,25 @@ export default function Projects() {
   ],
       github: "https://github.com/bircansen/shopora.git",
     },
+    {
+  title: "SwipeWords",
+  desc:
+    "Kullanıcıların kelimeleri sağa veya sola kaydırarak kendi kelime havuzlarını oluşturduğu ve bu sayede tekrarlarla öğrenmeyi kolaylaştıran bir kelime öğrenme uygulaması.",
+  tech: {
+    core: [
+      "React Native (Expo)", "TypeScript"
+    ],
+  },
+  slides: [
+    sw1,
+    sw2
+  ],
+  captions: [
+    "Ana Sayfa",
+    "Öğrenilecek Kelimeler Sayfası"
+  ],
+  github: "https://github.com/bircansen/words-app.git"
+},
   ];
 
   const setSlide = (i, idx) => {

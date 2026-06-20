@@ -133,7 +133,7 @@ export default function Projects() {
         sx={{
           width: "100%",
           maxWidth: 1100,
-          px: { xs: 2, sm: 5 },
+          px: { xs: 1.5, sm: 3, md: 5 },
           py: 6,
           borderRadius: 5,
           background: "rgba(255,255,255,0.7)",
@@ -141,7 +141,14 @@ export default function Projects() {
           boxShadow: "0 30px 80px rgba(0,0,0,0.25)",
         }}
       >
-        <Typography variant="h3" sx={{ fontWeight: 800, mb: 6, textAlign: "center" }}>
+        <Typography
+          sx={{
+            fontWeight: 800,
+            mb: 6,
+            textAlign: "center",
+            fontSize: { xs: "2rem", md: "3rem" },
+          }}
+        >
           Projeler
         </Typography>
 
@@ -156,7 +163,7 @@ export default function Projects() {
               data-index={i}
               ref={(el) => (cardRefs.current[i] = el)}
               sx={{
-                mb: 14,
+                mb: { xs: 8, md: 14 },
                 opacity: isVisible ? 1 : 0,
                 transform: isVisible ? "translateY(0)" : "translateY(40px)",
                 transition: "0.8s cubic-bezier(0.22, 1, 0.36, 1)",
@@ -167,14 +174,21 @@ export default function Projects() {
                 sx={{
                   display: "flex",
                   justifyContent: "space-between",
-                  alignItems: "center",
+                  alignItems: { xs: "flex-start", md: "center" },
+                  flexDirection: { xs: "column", md: "row" },
+                  gap: 2,
                 }}
               >
-                <Typography variant="h4" sx={{ fontWeight: 700 }}>
+                <Typography
+                  sx={{
+                    fontWeight: 700,
+                    fontSize: { xs: "1.5rem", md: "2.1rem" },
+                  }}
+                >
                   {project.title}
                 </Typography>
 
-                <Box sx={{ display: "flex", gap: 1 }}>
+                <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
                   <Box
                     component="a"
                     href={project.github}
@@ -183,14 +197,19 @@ export default function Projects() {
                     sx={{
                       display: "flex",
                       alignItems: "center",
-                      gap: 1,
+                      gap: 0.8,
                       textDecoration: "none",
                       color: "#111",
                       fontWeight: 600,
-                      px: 2,
-                      py: 1,
+
+                      px: { xs: 1, md: 2 },
+                      py: { xs: 0.5, md: 1 },
+
+                      fontSize: { xs: "0.75rem", md: "0.9rem" },
+
                       borderRadius: "10px",
                       background: "#f2f2f2",
+
                       transition: "0.2s",
                       "&:hover": {
                         background: "#e6e6e6",
@@ -211,14 +230,19 @@ export default function Projects() {
                       sx={{
                         display: "flex",
                         alignItems: "center",
-                        gap: 1,
+                        gap: 0.8,
                         textDecoration: "none",
                         color: "#111",
                         fontWeight: 600,
-                        px: 2,
-                        py: 1,
+
+                        px: { xs: 1, md: 2 },
+                        py: { xs: 0.5, md: 1 },
+
+                        fontSize: { xs: "0.75rem", md: "0.9rem" },
+
                         borderRadius: "10px",
                         background: "#e8f4ff",
+
                         transition: "0.2s",
                         "&:hover": {
                           background: "#d6ecff",
@@ -233,7 +257,7 @@ export default function Projects() {
                 </Box>
               </Box>
 
-              <Typography sx={{ color: "#555", mt: 1, mb: 2, maxWidth: 650 }}>
+              <Typography sx={{ color: "#555", mt: 1, mb: 2 }}>
                 {project.desc}
               </Typography>
 
@@ -246,14 +270,7 @@ export default function Projects() {
                     sx={{
                       background: "#111",
                       color: "#fff",
-                      m: 0.2,
-                      px: 0.5,
-                      fontSize: "0.8rem",
-                      transition: "0.25s",
-                      "&:hover": {
-                        transform: "translateY(-2px)",
-                        boxShadow: "0 8px 18px rgba(0,0,0,0.25)",
-                      },
+                      fontSize: "0.75rem",
                     }}
                   />
                 ))}
@@ -262,55 +279,23 @@ export default function Projects() {
               <Box sx={{ display: "flex", justifyContent: "center" }}>
                 <Box
                   sx={{
-                    boxShadow: "0 20px 50px rgba(0,0,0,0.25)",
-                    borderRadius: "12px",
+                    width: "100%",
+                    maxWidth: 900,
+                    borderRadius: 2,
                     overflow: "hidden",
-                    background: "#fff",
+                    boxShadow: "0 20px 50px rgba(0,0,0,0.25)",
                   }}
                 >
-                  <Box sx={{ position: "relative" }}>
-                    <Box onClick={() => prev(i)} sx={{ position: "absolute", left: 0, top: 0, width: "50%", height: "100%", zIndex: 2 }} />
-                    <Box onClick={() => next(i)} sx={{ position: "absolute", right: 0, top: 0, width: "50%", height: "100%", zIndex: 2 }} />
-
-                    <img
-                      src={current}
-                      onClick={() => setOpenImg(current)}
-                      draggable={false}
-                      style={{
-                        width: "100%",
-                        maxWidth: "75vw",
-                        maxHeight: "70vh",
-                        display: "block",
-                        cursor: "zoom-in",
-                        willChange: "transform",
-                      }}
-                    />
-                  </Box>
-
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      gap: 1,
-                      py: 1.5,
-                      background: "#fff",
+                  <img
+                    src={current}
+                    onClick={() => setOpenImg(current)}
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      display: "block",
+                      cursor: "zoom-in",
                     }}
-                  >
-                    {project.slides.map((_, idx2) => (
-                      <Box
-                        key={idx2}
-                        onClick={() => setSlide(i, idx2)}
-                        sx={{
-                          width: idx2 === idx ? 10 : 7,
-                          height: idx2 === idx ? 10 : 7,
-                          borderRadius: "50%",
-                          background: idx2 === idx ? "#111" : "#bbb",
-                          cursor: "pointer",
-                          transition: "0.2s",
-                        }}
-                      />
-                    ))}
-                  </Box>
+                  />
                 </Box>
               </Box>
             </Box>
@@ -320,7 +305,6 @@ export default function Projects() {
 
       <Modal open={!!openImg} onClose={() => setOpenImg(null)}>
         <Box
-          onClick={() => setOpenImg(null)}
           sx={{
             width: "100vw",
             height: "100vh",
@@ -336,7 +320,6 @@ export default function Projects() {
               maxWidth: "95vw",
               maxHeight: "95vh",
               objectFit: "contain",
-              borderRadius: "10px",
             }}
           />
         </Box>

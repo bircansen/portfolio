@@ -1,15 +1,13 @@
 import { AppBar, Box, Button, Typography } from "@mui/material";
 import { Link } from "react-scroll";
 import { useEffect, useState } from "react";
-
-import cv from "../assets/cv.pdf"; // 🔥 DOĞRU PDF IMPORT
+import cv from "../assets/cv.pdf";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 80);
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -19,21 +17,14 @@ export default function Navbar() {
     { id: "contact", label: "İLETİŞİM" },
   ];
 
-  // 🔥 PDF AÇMA (DOĞRU YÖNTEM)
-  const openCV = () => {
-    window.open(cv, "_blank");
-  };
+  const openCV = () => window.open(cv, "_blank");
 
   return (
-    <AppBar
-      position="fixed"
-      elevation={0}
-      sx={{ background: "transparent", boxShadow: "none" }}
-    >
+    <AppBar position="fixed" elevation={0} sx={{ background: "transparent" }}>
       <Box
         sx={{
           position: "fixed",
-          top: scrolled ? 8 : 16,
+          top: scrolled ? 8 : 12,
           left: "50%",
           transform: "translateX(-50%)",
           zIndex: 1300,
@@ -44,34 +35,27 @@ export default function Navbar() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-
-            width: scrolled ? "min(760px, 94vw)" : "min(900px, 92vw)",
-
-            px: scrolled ? 2 : 3,
-            py: scrolled ? 0.6 : 1,
-
+            width: { xs: "95vw", md: scrolled ? "760px" : "900px" },
+            px: { xs: 1.2, md: scrolled ? 2 : 3 },
+            py: { xs: 0.4, md: scrolled ? 0.6 : 1 },
             borderRadius: "999px",
-
             background: scrolled
               ? "rgba(255,255,255,0.94)"
               : "rgba(255,255,255,0.85)",
-
             backdropFilter: "blur(18px)",
             border: "1px solid rgba(0,0,0,0.05)",
-
             boxShadow: scrolled
               ? "0 14px 40px rgba(0,0,0,0.22)"
               : "0 6px 20px rgba(0,0,0,0.08)",
-
             transition: "all 0.3s ease",
           }}
         >
-          {/* SOL → ABOUT */}
+          {/* LEFT */}
           <Link to="about" smooth duration={600} offset={-90}>
             <Typography
               sx={{
                 fontWeight: 800,
-                fontSize: { xs: "1rem", md: "1.2rem" },
+                fontSize: { xs: "0.8rem", md: "1.2rem" },
                 cursor: "pointer",
                 color: "#111",
               }}
@@ -80,32 +64,33 @@ export default function Navbar() {
             </Typography>
           </Link>
 
-          {/* SAĞ MENU */}
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: scrolled ? 0.2 : 0.5,
-            }}
-          >
+          {/* RIGHT MENU */}
+          <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
             {menu.map((item) => (
-              <Link
-                key={item.id}
-                to={item.id}
-                smooth
-                duration={600}
-                offset={-90}
-              >
-                <Button sx={{ color: "#222", textTransform: "none" }}>
+              <Link key={item.id} to={item.id} smooth duration={600} offset={-90}>
+                <Button
+                  sx={{
+                    color: "#222",
+                    textTransform: "none",
+                    minWidth: "auto",
+                    px: { xs: 0.5, md: 1.5 },
+                    fontSize: { xs: "0.7rem", md: "0.95rem" },
+                  }}
+                >
                   {item.label}
                 </Button>
               </Link>
             ))}
 
-            {/* ÖZGEÇMİŞ (PDF) */}
             <Button
               onClick={openCV}
-              sx={{ color: "#222", textTransform: "none" }}
+              sx={{
+                color: "#222",
+                textTransform: "none",
+                minWidth: "auto",
+                px: { xs: 0.5, md: 1.5 },
+                fontSize: { xs: "0.7rem", md: "0.95rem" },
+              }}
             >
               ÖZGEÇMİŞ
             </Button>
